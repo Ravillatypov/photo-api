@@ -13,5 +13,7 @@ class PhotoManager(Manager):
         qs = self.all()
         if user.is_superuser:
             return qs
+        if user.is_anonymous:
+            return self.get_accepted()
         q = Q(author=user) | Q(is_accepted=True)
         return qs.filter(q)
