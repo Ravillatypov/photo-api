@@ -7,10 +7,10 @@ class PhotoManager(Manager):
         return qs
 
     def get_accepted(self):
-        return self.get_query_set().filter(is_accepted=True)
+        return self.all().filter(is_accepted=True)
     
     def get_queryset_by_user(self, user):
-        qs = self.get_query_set()
+        qs = self.all()
         if user.is_superuser:
             return qs
         q = Q(author=user) | Q(is_accepted=True)
